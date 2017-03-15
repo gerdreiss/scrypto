@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SCrypto</string>
+    <string name="input">Clear test input</string>
+    <string name="output">Encoded output</string>
+    <string name="send">Send</string>
+    <string name="copy">Copy</string>
+</resources>

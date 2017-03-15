@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+    <EditText
+            android:id="@+id/input"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="top"
+            android:hint="@string/input"
+            android:inputType="textMultiLine"/>
+
+    <EditText
+            android:id="@+id/output"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="top"
+            android:hint="@string/output"
+            android:inputType="textMultiLine"/>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="0.5"
+                android:text="@string/send"
+                android:onClick="send"/>
+
+        <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="0.5"
+                android:text="@string/copy"
+                android:onClick="copy"/>
+    </LinearLayout>
+
+    <ImageView
+            android:id="@+id/image"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/waving_scala_android"/>
+
+</LinearLayout>
