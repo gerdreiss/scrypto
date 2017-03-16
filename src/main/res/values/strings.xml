@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SCrypto</string>
-    <string name="input">Clear test input</string>
-    <string name="output">Encoded output</string>
+    <string name="input">Clear text</string>
+    <string name="input_history">Clear text history</string>
+    <string name="output">Encoded text</string>
     <string name="send">Send</string>
     <string name="copy">Copy</string>
+
+    <string-array name="input_history">
+        <item>Select from history</item>
+    </string-array>
 </resources>
