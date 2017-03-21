@@ -23,8 +23,8 @@ class MainActivity extends AppCompatActivity {
   }
 
   class InputHistoryListener(input: EditText) extends AdapterView.OnItemSelectedListener {
-    override def onNothingSelected(parent: AdapterView[_ <: Adapter]): Unit = {}
-    override def onItemSelected(parent: AdapterView[_ <: Adapter], view: View, position: Int, id: Long): Unit = {
+    def onNothingSelected(parent: AdapterView[_]): Unit = {}
+    def onItemSelected(parent: AdapterView[_], view: View, position: Int, id: Long): Unit = {
       if (position > 0) {
         input.setText(parent.getItemAtPosition(position).toString)
       }
