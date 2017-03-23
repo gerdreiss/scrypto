@@ -1,13 +1,13 @@
 package com.jscriptive.scrypto
 
 import android.content.ClipData.newPlainText
-import android.content.{ClipboardManager, Context}
+import android.content.{ActivityNotFoundException, ClipboardManager, Context, Intent}
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.{Editable, TextWatcher}
 import android.util.Base64
 import android.view.View
-import android.widget._
+import android.widget.{Toast, _}
 
 class MainActivity extends AppCompatActivity {
   // allows accessing `.value` on TR.resource.constants
@@ -75,7 +75,17 @@ class MainActivity extends AppCompatActivity {
     if (outputText.length() == 0) {
       Toast.makeText(this, "Nothing to share", Toast.LENGTH_SHORT).show()
     } else {
-      Toast.makeText(this, "This button does nothing yet...", Toast.LENGTH_SHORT).show()
+      val sendIntent = new Intent(Intent.ACTION_SEND)
+      sendIntent.setType("message/rfc822")
+      sendIntent.putExtra(Intent.EXTRA_EMAIL, "recipient@example.com")
+      sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Scrypto")
+      sendIntent.putExtra(Intent.EXTRA_TEXT, outputText.getText.toString)
+      try
+        startActivity(Intent.createChooser(sendIntent, "Share..."))
+      catch {
+        case ex: ActivityNotFoundException =>
+          Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show()
+      }
     }
   }
 
