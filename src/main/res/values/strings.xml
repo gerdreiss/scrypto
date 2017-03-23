@@ -4,10 +4,17 @@
     <string name="input">Clear text</string>
     <string name="input_history">Clear text history</string>
     <string name="output">Encoded text</string>
-    <string name="send">Send</string>
+    <string name="share">Share</string>
     <string name="copy">Copy</string>
 
     <string-array name="input_history">
         <item>Select from history</item>
+    </string-array>
+
+    <string-array name="encryption_methods">
+        <item>Base64</item>
+        <item>MD5</item>
+        <item>SHA1</item>
+        <item>SHA-256</item>
     </string-array>
 </resources>

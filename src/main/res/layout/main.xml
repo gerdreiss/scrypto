@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,7 +10,7 @@
             android:id="@+id/inputHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:prompt="@string/input_history"/>
+            android:entries="@array/input_history"/>
 
     <EditText
             android:id="@+id/input"
@@ -21,6 +20,12 @@
             android:gravity="top"
             android:hint="@string/input"
             android:inputType="textMultiLine"/>
+
+    <Spinner
+            android:id="@+id/encryptionMethods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/encryption_methods"/>
 
     <EditText
             android:id="@+id/output"
@@ -40,8 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_weight="0.5"
-                android:text="@string/send"
-                android:onClick="send"/>
+                android:text="@string/share"
+                android:onClick="share"/>
 
         <Button
                 android:layout_height="wrap_content"
@@ -50,13 +55,5 @@
                 android:text="@string/copy"
                 android:onClick="copy"/>
     </LinearLayout>
-
-    <ImageView
-            android:id="@+id/image"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="128dp"
-            android:layout_margin="12dp"
-            app:srcCompat="@drawable/waving_scala_android"/>
 
 </LinearLayout>
