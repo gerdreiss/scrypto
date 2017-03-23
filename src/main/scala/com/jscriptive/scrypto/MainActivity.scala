@@ -18,7 +18,7 @@ class MainActivity extends AppCompatActivity {
   }
 
   private def encryptInput(input: String, encryption: String): String = {
-    val digest = java.security.MessageDigest.getInstance("MD5")
+    val digest = java.security.MessageDigest.getInstance(encryption)
     digest.reset()
     digest.update(input.getBytes("UTF-8"))
     new java.math.BigInteger(1, digest.digest()).toString(16)
