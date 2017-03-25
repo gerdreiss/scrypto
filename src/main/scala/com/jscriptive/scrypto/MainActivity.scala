@@ -16,33 +16,14 @@ class MainActivity extends AppCompatActivity {
   implicit val context = this
   val FILE = "scrypto.history"
 
-  private def encodeBase64(input: String): String = {
-    Base64.encodeToString(input.getBytes("UTF-8"), Base64.DEFAULT)
-  }
-
-  private def encryptInput(input: String, encryption: String): String = {
-    val digest = java.security.MessageDigest.getInstance(encryption)
-    digest.reset()
-    digest.update(input.getBytes("UTF-8"))
-    new java.math.BigInteger(1, digest.digest()).toString(16)
-  }
-
-  private def updateOutput(input: CharSequence, encryptionMethodIndex: Int, output: EditText) = {
-    encryptionMethodIndex match {
-      case 0 => output.setText(encodeBase64(input.toString))
-      case 1 => output.setText(encryptInput(input.toString, "MD5"))
-      case 2 => output.setText(encryptInput(input.toString, "SHA-1"))
-      case 3 => output.setText(encryptInput(input.toString, "SHA-256"))
-      case _ =>
-    }
-  }
-
-  class InputTextWatcher(encryptionMethods: Spinner, output: EditText) extends TextWatcher {
-    override def beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int): Unit = {}
-    override def afterTextChanged(s: Editable): Unit = {}
-    override def onTextChanged(s: CharSequence, start: Int, before: Int, count: Int): Unit = {
-      updateOutput(s, encryptionMethods.getSelectedItemPosition, output)
-    }
+  override def onCreate(savedInstanceState: Bundle): Unit = {
+    super.onCreate(savedInstanceState)
+    // type ascription is required due to SCL-10491
+    val vh = TypedViewHolder.setContentView(this, TR.layout.main).asInstanceOf[TypedViewHolder.main]
+    //vh.inputHistory.setAdapter(new ArrayAdapter[String](context, vh.inputHistory.getId, readHistory(FILE).toArray))
+    vh.inputHistory.setOnItemSelectedListener(new InputHistoryListener(vh.input))
+    vh.input.addTextChangedListener(new InputTextWatcher(vh.encryptionMethods, vh.output))
+    vh.encryptionMethods.setOnItemSelectedListener(new EncryptionMethodListener(vh.input, vh.output))
   }
 
   class InputHistoryListener(input: EditText) extends AdapterView.OnItemSelectedListener {
@@ -55,6 +36,14 @@ class MainActivity extends AppCompatActivity {
     }
   }
 
+  class InputTextWatcher(encryptionMethods: Spinner, output: EditText) extends TextWatcher {
+    override def beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int): Unit = {}
+    override def afterTextChanged(s: Editable): Unit = {}
+    override def onTextChanged(s: CharSequence, start: Int, before: Int, count: Int): Unit = {
+      updateOutput(s, encryptionMethods.getSelectedItemPosition, output)
+    }
+  }
+
   class EncryptionMethodListener(input: EditText, output: EditText) extends AdapterView.OnItemSelectedListener {
     def onNothingSelected(parent: AdapterView[_]): Unit = {}
     def onItemSelected(parent: AdapterView[_], view: View, position: Int, id: Long): Unit = {
@@ -64,14 +53,25 @@ class MainActivity extends AppCompatActivity {
     }
   }
 
-  override def onCreate(savedInstanceState: Bundle): Unit = {
-    super.onCreate(savedInstanceState)
-    // type ascription is required due to SCL-10491
-    val vh = TypedViewHolder.setContentView(this, TR.layout.main).asInstanceOf[TypedViewHolder.main]
-    //vh.inputHistory.setAdapter(new ArrayAdapter[String](context, vh.inputHistory.getId, readHistory(FILE).toArray))
-    vh.inputHistory.setOnItemSelectedListener(new InputHistoryListener(vh.input))
-    vh.input.addTextChangedListener(new InputTextWatcher(vh.encryptionMethods, vh.output))
-    vh.encryptionMethods.setOnItemSelectedListener(new EncryptionMethodListener(vh.input, vh.output))
+  private def updateOutput(input: CharSequence, encryptionMethodIndex: Int, output: EditText) = {
+    encryptionMethodIndex match {
+      case 0 => output.setText(encodeBase64(input.toString))
+      case 1 => output.setText(encryptInput(input.toString, "MD5"))
+      case 2 => output.setText(encryptInput(input.toString, "SHA-1"))
+      case 3 => output.setText(encryptInput(input.toString, "SHA-256"))
+      case _ =>
+    }
+  }
+
+  private def encodeBase64(input: String): String = {
+    Base64.encodeToString(input.getBytes("UTF-8"), Base64.DEFAULT)
+  }
+
+  private def encryptInput(input: String, encryption: String): String = {
+    val digest = java.security.MessageDigest.getInstance(encryption)
+    digest.reset()
+    digest.update(input.getBytes("UTF-8"))
+    new java.math.BigInteger(1, digest.digest()).toString(16)
   }
 
   def share(view: View): Unit = {
